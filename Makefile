@@ -157,6 +157,9 @@ docker:	setup-ec2-sdk-override     ## Build VPC CNI plugin & agent container ima
 		-t "$(IMAGE_NAME)" \
 		.
 	@echo "Built Docker image \"$(IMAGE_NAME)\""
+	docker tag $(IMAGE_NAME) 812206152185.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:$(VERSION)
+	docker push 812206152185.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:$(VERSION)
+	@echo "Pushed Docker image \"812206152185.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni:$(VERSION)\""
 
 docker-init:     ## Build VPC CNI plugin Init container image.
 	docker build $(DOCKER_BUILD_FLAGS_CNI_INIT) \
