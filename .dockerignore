@@ -6,3 +6,4 @@ portmap
 loopback
 bandwidth
 routed-eni-cni-plugin
+scripts/

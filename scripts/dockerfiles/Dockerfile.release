@@ -25,13 +25,11 @@ COPY --from=builder /go/src/github.com/aws/amazon-vpc-cni-k8s/aws-cni \
 
 # Set iptables mode automatically based on kubelet hint
 # RUN ["update-alternatives", "--set", "iptables", "/usr/sbin/iptables-wrapper"]
-# (aidan): this script prints out a bunch of symlink failed, alread exist errors
+# (aidan): this script prints out a bunch of symlink failed, already exist errors
 # when run on our cluster. It could be sysbox, it could be something else.
 # To fix, we forked this repo and removed this line. Now we can control the
 # iptables version with the environment variable.
-RUN update-alternatives --set iptables /usr/sbin/iptables-nft
-RUN update-alternatives --set ip6tables /usr/sbin/ip6tables-nft
-RUN update-alternatives --set arptables /usr/sbin/arptables-nft
-RUN update-alternatives --set ebtables /usr/sbin/ebtables-nft
+RUN ["update-alternatives", "--set", "iptables", "/usr/sbin/iptables-nft"]
+RUN ["update-alternatives", "--set", "ip6tables", "/usr/sbin/ip6tables-nft"]
 
 ENTRYPOINT ["/app/aws-vpc-cni"]
